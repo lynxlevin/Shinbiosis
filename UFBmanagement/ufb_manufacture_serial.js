@@ -4,19 +4,19 @@
   function autoNum(event) {
       var record = event.record;
 
-      // 製造終了日時を取得し、2桁の年を取得する
-      var dt = record['製造終了日時'].value;
-      var dtyymmdd = dt.substring(0, 10); // ll 製造終了日時の日付部分
+      // 製造開始日時を取得し、2桁の年を取得する
+      var dt = record['製造開始日時'].value;
+      var dtyymmdd = dt.substring(0, 10); // ll 製造開始日時の日付部分
       var dtmin = dtyymmdd + ' 00:00'; // ll dtyymmddの00:00
       var dtmax = (parseInt(dtyymmdd, 10) + 1) + ' 00:00'; // ll dtyymmddの翌日の00:00
 
       // クエリ文の設定
       var query = {
           "app": kintone.app.getId(),
-          "query": '製造終了日時 >= "' + dtmin + '" and 製造終了日時 < "' + dtmax + '" order by 製造番号 desc limit 1'
+          "query": '製造開始日時 >= "' + dtmin + '" and 製造開始日時 < "' + dtmax + '" order by 製造番号 desc limit 1'
       };
 
-      // 設定された製造終了日時から最新の番号を取得する
+      // 設定された製造開始日時から最新の番号を取得する
       return kintone.api(kintone.api.url('/k/v1/records', true), 'GET', query).then(function(resp) {
           var records = resp.records;
 
@@ -58,7 +58,7 @@
       var record = event.record;
       //フィールドを非活性にする
       record['製造番号'].disabled = true;
-      record['製造終了日時'].disabled = true;
+      record['製造開始日時'].disabled = true;
       return event;
   });
 
