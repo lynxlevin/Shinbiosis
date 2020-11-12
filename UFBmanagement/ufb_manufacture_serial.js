@@ -4,23 +4,23 @@
   function autoNum(event) {
       var record = event.record;
 
-      // 製造開始日時を取得し、2桁の年を取得する
+      // 「製造開始日時」を取得し、日付を取得する
       var dt = record['製造開始日時'].value;
-      var dtyymmdd = dt.substring(0, 10); // ll 製造開始日時の日付部分
-      var dtmin = dtyymmdd; // ll dtyymmdd
-      var dtmax = dt.substring(0, 8) + (parseInt(dt.substring(8,10), 10) + 1); // ll dtyymmddの翌日
+      var dtyymmdd = dt.substring(0, 10); // 製造開始日時の日付部分
+      var dtmin = dtyymmdd;
+      var dtmax = dt.substring(0, 8) + (parseInt(dt.substring(8,10), 10) + 1); // dtminの翌日
 
-      // クエリ文の設定
+      // 同じ日付のレコードを取得するためのクエリ文の設定
       var query = {
           "app": kintone.app.getId(),
           "query": '製造開始日時 >= "' + dtmin + '" and 製造開始日時 < "' + dtmax + '" order by 製造番号 desc limit 1'
       };
 
-      // 設定された製造開始日時から最新の番号を取得する
+      // 上記のクエリで最新のレコードを取得する
       return kintone.api(kintone.api.url('/k/v1/records', true), 'GET', query).then(function(resp) {
           var records = resp.records;
 
-          // 対象レコードがあった場合
+          // 対象レコードがあった場合 → 末尾の数字を1大きくする
           if (records.length > 0) {
               var rec = records[0];
               var autono = rec['製造番号'].value;
@@ -29,7 +29,7 @@
               autono = dt.substring(2, 4) + dt.substring(5, 7) + dt.substring(8, 10) + '-' + autono.substring(autono.length - 2);
               event.record['製造番号'].value = autono;
 
-          // 対象レコードがなかった場合
+          // 対象レコードがなかった場合 → 日付の末尾に-01をつける
           } else {
               event.record['製造番号'].value = dt.substring(2, 4) + dt.substring(5, 7) + dt.substring(8, 10) + '-01';
           }
