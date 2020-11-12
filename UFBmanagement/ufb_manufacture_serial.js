@@ -3,10 +3,6 @@
 
   function autoNum(event) {
       var record = event.record;
-      
-      if (record['製造終了日時'] == null || record['製造番号'] != null) {
-        return null;
-      }
 
       // 製造終了日時を取得し、2桁の年を取得する
       var dt = record['製造終了日時'].value;
@@ -46,7 +42,6 @@
 
   //新規作成画面の保存
   kintone.events.on('app.record.create.submit', autoNum);
-  kintone.events.on('app.record.edit.submit', autoNum);
 
 
   // 新規作成画面表示
@@ -63,7 +58,7 @@
       var record = event.record;
       //フィールドを非活性にする
       record['製造番号'].disabled = true;
-      // record['製造終了日時'].disabled = true;
+      record['製造終了日時'].disabled = true;
       return event;
   });
 
