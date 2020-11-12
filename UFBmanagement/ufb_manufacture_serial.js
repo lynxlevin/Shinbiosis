@@ -8,7 +8,7 @@
       var dt = record['製造開始日時'].value;
       var dtyymmdd = dt.substring(0, 10); // ll 製造開始日時の日付部分
       var dtmin = dtyymmdd; // ll dtyymmdd
-      var dtmax = (parseInt(dtyymmdd, 10) + 1); // ll dtyymmddの翌日
+      var dtmax = dt.substring(0, 8) + (parseInt(dt.substring(8,10), 10) + 1); // ll dtyymmddの翌日
 
       // クエリ文の設定
       var query = {
