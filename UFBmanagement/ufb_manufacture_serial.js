@@ -7,8 +7,8 @@
       // 製造開始日時を取得し、2桁の年を取得する
       var dt = record['製造開始日時'].value;
       var dtyymmdd = dt.substring(0, 10); // ll 製造開始日時の日付部分
-      var dtmin = dtyymmdd + ' 00:00'; // ll dtyymmddの00:00
-      var dtmax = (parseInt(dtyymmdd, 10) + 1) + ' 00:00'; // ll dtyymmddの翌日の00:00
+      var dtmin = dtyymmdd; // ll dtyymmdd
+      var dtmax = (parseInt(dtyymmdd, 10) + 1); // ll dtyymmddの翌日
 
       // クエリ文の設定
       var query = {
