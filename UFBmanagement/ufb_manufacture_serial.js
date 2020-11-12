@@ -31,7 +31,7 @@
 
           // 対象レコードがなかった場合
           } else {
-              event.record['製造番号'].value = dt.substring(2, 4) + '-00001';
+              event.record['製造番号'].value = dt.substring(2, 4) + dt.substring(5, 7) + dt.substring(8, 10) + '-01';
           }
           return event;
       }).catch(function(e) {
