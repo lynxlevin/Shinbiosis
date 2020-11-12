@@ -4,20 +4,20 @@
   function autoNum(event) {
       var record = event.record;
 
-      // 製造番号選択を取得し、2桁の年を取得する
+      // 「製造番号選択」を取得する
       var dt = record['製造番号選択'].value;
 
-      // クエリ文の設定
+      // 同じ製造番号のレコードを取得するためのクエリ文の設定
       var query = {
           "app": kintone.app.getId(),
           "query": '製造番号選択 = "' + dt + '" order by ロットNo desc limit 1'
       };
 
-      // 設定された製造番号選択から最新の番号を取得する
+      // 上記のクエリで最新のレコードを取得する
       return kintone.api(kintone.api.url('/k/v1/records', true), 'GET', query).then(function(resp) {
           var records = resp.records;
 
-          // 対象レコードがあった場合
+          // 対象レコードがあった場合 → 末尾の数字を1大きくする
           if (records.length > 0) {
               var rec = records[0];
               var autono = rec['ロットNo'].value;
@@ -26,9 +26,9 @@
               autono = dt.substring(0, 9) + '-' + autono.substring(autono.length - 2);
               event.record['ロットNo'].value = autono;
 
-          // 対象レコードがなかった場合
+          // 対象レコードがなかった場合 → 製造番号の末尾に-01をつける
           } else {
-              event.record['ロットNo'].value = dt.substring(0, 9) + '-01';
+              event.record['ロットNo'].value = dt + '-01';
           }
           return event;
       }).catch(function(e) {
