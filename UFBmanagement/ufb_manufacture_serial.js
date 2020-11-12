@@ -4,7 +4,7 @@
   function autoNum(event) {
       var record = event.record;
       
-      if (record['製造終了日時'].value == null || record['製造番号'].value != null) {
+      if (record['製造終了日時'] == null || record['製造番号'] != null) {
         return null;
       }
 
