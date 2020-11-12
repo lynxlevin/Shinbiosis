@@ -24,9 +24,9 @@
           if (records.length > 0) {
               var rec = records[0];
               var autono = rec['製造番号'].value;
-              autono = parseInt(autono.substring(3), 10) + 1;
-              autono = '00000' + autono;
-              autono = dt.substring(2, 4) + '-' + autono.substring(autono.length - 5);
+              autono = parseInt(autono.substring(7, 9), 10) + 1;
+              autono = '00' + autono;
+              autono = dt.substring(2, 4) + dt.substring(5, 7) + dt.substring(8, 10) + '-' + autono.substring(autono.length - 2);
               event.record['製造番号'].value = autono;
 
           // 対象レコードがなかった場合
