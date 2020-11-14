@@ -37,7 +37,7 @@
       });
   }
 
-  //新規作成画面の保存
+  //新規作成画面と編集画面の保存
   kintone.events.on(['app.record.create.submit', 'app.record.edit.submit'], autoNum);
 
 
