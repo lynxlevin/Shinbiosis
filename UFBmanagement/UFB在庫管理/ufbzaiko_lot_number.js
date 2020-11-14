@@ -10,7 +10,7 @@
       // 同じ製造番号のレコードを取得するためのクエリ文の設定
       var query = {
           "app": kintone.app.getId(),
-          "query": '製造番号選択 = "' + dt + '" order by ロットNo desc limit 1'
+          "query": '製造番号選択 = "' + dt + '" order by ロットNo自動採番 desc limit 1'
       };
 
       // 上記のクエリで最新のレコードを取得する
@@ -20,15 +20,15 @@
           // 対象レコードがあった場合 → 末尾の数字を1大きくする
           if (records.length > 0) {
               var rec = records[0];
-              var autono = rec['ロットNo'].value;
+              var autono = rec['ロットNo自動採番'].value;
               autono = parseInt(autono.substring(10, 12), 10) + 1;
               autono = '00' + autono;
               autono = dt.substring(0, 9) + '-' + autono.substring(autono.length - 2);
-              event.record['ロットNo'].value = autono;
+              event.record['ロットNo自動採番'].value = autono;
 
           // 対象レコードがなかった場合 → 製造番号の末尾に-01をつける
           } else {
-              event.record['ロットNo'].value = dt + '-01';
+              event.record['ロットNo自動採番'].value = dt + '-01';
           }
           return event;
       }).catch(function(e) {
@@ -38,14 +38,14 @@
   }
 
   //新規作成画面の保存
-  kintone.events.on('app.record.create.submit', autoNum);
+  kintone.events.on(['app.record.create.submit', 'app.record.edit.submit'], autoNum);
 
 
   // 新規作成画面表示
   kintone.events.on('app.record.create.show', function(event) {
       var record = event.record;
       //フィールドを非活性にする
-      record['ロットNo'].disabled = true;
+      record['ロットNo自動採番'].disabled = true;
       return event;
   });
 
@@ -54,8 +54,7 @@
   kintone.events.on(['app.record.edit.show', 'app.record.index.edit.show'], function(event) {
       var record = event.record;
       //フィールドを非活性にする
-      record['ロットNo'].disabled = true;
-      record['製造番号選択'].disabled = true;
+      record['ロットNo自動採番'].disabled = true;
       return event;
   });
 
