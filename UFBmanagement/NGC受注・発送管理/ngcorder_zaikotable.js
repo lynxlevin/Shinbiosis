@@ -28,7 +28,7 @@
           var array = [];
           records.forEach(record => {
             record.出庫履歴.value.forEach(subrecord => {
-              array.push = {
+              array.push({
                 value: {
                   '在庫ロットNo': {
                     value: record.ロットNo.value,
@@ -47,6 +47,7 @@
                     type: 'NUMBER'
                   }
                 }
+              });
             });
           });
           event.record.発送テーブル.value = array;
