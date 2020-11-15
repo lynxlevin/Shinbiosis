@@ -46,8 +46,8 @@
             });
           });
           event.record.発送在庫情報.value = array;
-          event.record.発送在庫情報.value.forEach(rec => {
-            rec.value.在庫ロットNo.lookup = true;
+          event.record.発送在庫情報.value.forEach(row => {
+            row.value.在庫ロットNo.lookup = true;
             });
         }
         
@@ -60,7 +60,17 @@
     }
   }
 
-  //新規作成画面と編集画面の表示で動作
-  kintone.events.on(['app.record.create.show', 'app.record.edit.show'], getStock);
+  // 編集画面の表示で動作
+  kintone.events.on('app.record.edit.show', getStock);
+
+  // 新規作成画面と編集画面の表示でフィールドを非活性にする
+  kintone.events.on(['app.record.create.show', 'app.record.edit.show', 'app.record.create.change.発送在庫情報', 'app.record.edit.change.発送在庫情報'], function(event) {
+    var record = event.record;
+    record.発送在庫情報.value.forEach(row => {
+      row.value.出庫数量.disabled = true;
+      row.value.在庫ロットNo.disabled = true;
+    })
+    return event;
+  });
 
 })();
