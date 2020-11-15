@@ -28,29 +28,31 @@
           var array = [];
           records.forEach(record => {
             record.出庫履歴.value.forEach(subrecord => {
-              array.push({
-                value: {
-                  '在庫ロットNo': {
-                    value: record.ロットNo.value,
-                    type: 'SINGLE_LINE_TEXT'
-                  },
-                  '封入気体表示用': {
-                    value: record.封入気体表示用.value,
-                    type: 'SINGLE_LINE_TEXT'
-                  },
-                  '容量種別表示用': {
-                    value: record.容量種別表示用.value,
-                    type: 'SINGLE_LINE_TEXT'
-                  },
-                  '出庫数量': {
-                    value: subrecord.value.出庫数量.value,
-                    type: 'NUMBER'
+              if (subrecord.value.受注レコード番号.value == dt) {
+                array.push({
+                  value: {
+                    '在庫ロットNo': {
+                      value: record.ロットNo.value,
+                      type: 'SINGLE_LINE_TEXT'
+                    },
+                    '封入気体表示用': {
+                      value: record.封入気体表示用.value,
+                      type: 'SINGLE_LINE_TEXT'
+                    },
+                    '容量種別表示用': {
+                      value: record.容量種別表示用.value,
+                      type: 'SINGLE_LINE_TEXT'
+                    },
+                    '出庫数量': {
+                      value: subrecord.value.出庫数量.value,
+                      type: 'NUMBER'
+                    }
                   }
-                }
-              });
+                });
+              }
             });
           });
-          event.record.発送テーブル.value = array;
+          event.record.発送在庫情報.value = array;
         }
         // 対象レコードがなかった場合 → 何もしない
         return event;
@@ -64,58 +66,4 @@
   //新規作成画面と編集画面の表示で動作
   kintone.events.on(['app.record.create.show', 'app.record.edit.show'], getStock);
 
-
-  // // 新規作成画面表示
-  // kintone.events.on('app.record.create.show', function(event) {
-  //     var record = event.record;
-  //     //フィールドを非活性にする
-  //     record['ロットNo'].disabled = true;
-  //     return event;
-  // });
-
-
-  // // 編集画面表示
-  // kintone.events.on(['app.record.edit.show', 'app.record.index.edit.show'], function(event) {
-  //     var record = event.record;
-  //     //フィールドを非活性にする
-  //     record['ロットNo'].disabled = true;
-  //     return event;
-  // });
-
 })();
-
-
-// var array = [
-//   {
-//     value: {
-//       "在庫ロットNo": {
-//         value: "1", type: "SINGLE_LINE_TEXT"
-//       }, 
-//       "封入気体表示用": {
-//         value: "H2", type: "SINGLE_LINE_TEXT"
-//       }, 
-//       "容量種別表示用": {
-//         value: "2l", type: "SINGLE_LINE_TEXT"
-//       }, 
-//       "出庫数量": {
-//         value: "1", type: "NUMBER"
-//       }
-//     }
-//   }, 
-//   {
-//     value: {
-//       "在庫ロットNo": {
-//         value: "2", type: "SINGLE_LINE_TEXT"
-//       }, 
-//       "封入気体表示用": {
-//         value: "O3", type: "SINGLE_LINE_TEXT"
-//       }, 
-//       "容量種別表示用": {
-//         value: "3l", type: "SINGLE_LINE_TEXT"
-//       }, 
-//       "出庫数量": {
-//         value: "2", type: "NUMBER"
-//       }
-//     }
-//   }
-// ]
