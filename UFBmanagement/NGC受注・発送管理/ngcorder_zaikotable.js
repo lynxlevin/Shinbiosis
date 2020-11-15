@@ -53,7 +53,11 @@
             });
           });
           event.record.発送在庫情報.value = array;
+          event.record.発送在庫情報.value.forEach(rec => {
+            rec.value.在庫ロットNo.lookup = true;
+            });
         }
+        
         // 対象レコードがなかった場合 → 何もしない
         return event;
       }).catch(function(e) {
