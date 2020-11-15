@@ -35,18 +35,11 @@
                       value: record.ロットNo.value,
                       type: 'SINGLE_LINE_TEXT'
                     },
-                    '封入気体表示用': {
-                      value: record.封入気体表示用.value,
-                      type: 'SINGLE_LINE_TEXT'
-                    },
-                    '容量種別表示用': {
-                      value: record.容量種別表示用.value,
-                      type: 'SINGLE_LINE_TEXT'
-                    },
                     '出庫数量': {
                       value: subrecord.value.出庫数量.value,
                       type: 'NUMBER'
                     }
+                    // 「封入気体表示用」と「容量種別表示用」はルックアップで取得 
                   }
                 });
               }
