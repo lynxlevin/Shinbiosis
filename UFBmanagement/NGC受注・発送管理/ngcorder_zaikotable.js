@@ -6,9 +6,7 @@
 
     // 「処理状況」が「受注」の場合のみ動作
     if (record.処理状況.value != "受注") {
-      record.備考注文.value = "1";
-      return event;
-      // return null;
+      return null;
     } else {
 
       // 「受注レコード番号」を取得する
