@@ -14,7 +14,7 @@
       
       // 在庫管理のテーブル情報より、「受注レコード番号」が一致するデータを取得
       var query = {
-        "fields": ["ロットNo", "封入気体表示用", "容量種別表示用", "出庫履歴"],
+        "fields": ["ロットNo", "封入気体表示用", "容器種別表示用", "出庫履歴"],
         "app": 69, //在庫管理
         "query": '受注レコード番号 in("' + dt + '")'
       };
@@ -39,8 +39,8 @@
                       value: record.封入気体表示用.value,
                       type: 'SINGLE_LINE_TEXT'
                     },
-                    '容量種別表示用': {
-                      value: record.容量種別表示用.value,
+                    '容器種別表示用': {
+                      value: record.容器種別表示用.value,
                       type: 'SINGLE_LINE_TEXT'
                     },
                     '出庫数量': {
@@ -71,13 +71,13 @@
   kintone.events.on('app.record.edit.show', getStock);
 
   // 新規作成画面と編集画面の表示でフィールドを非活性にする
-  kintone.events.on(['app.record.create.show', 'app.record.edit.show', 'app.record.create.change.発送在庫情報', 'app.record.edit.change.発送在庫情報'], function(event) {
-    var record = event.record;
-    record.発送在庫情報.value.forEach(row => {
-      row.value.出庫数量.disabled = true;
-      row.value.在庫ロットNo.disabled = true;
-    })
-    return event;
-  });
+  // kintone.events.on(['app.record.create.show', 'app.record.edit.show', 'app.record.create.change.発送在庫情報', 'app.record.edit.change.発送在庫情報'], function(event) {
+  //   var record = event.record;
+  //   record.発送在庫情報.value.forEach(row => {
+  //     row.value.出庫数量.disabled = true;
+  //     row.value.在庫ロットNo.disabled = true;
+  //   })
+  //   return event;
+  // });
 
 })();
