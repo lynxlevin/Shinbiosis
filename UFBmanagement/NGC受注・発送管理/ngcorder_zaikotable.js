@@ -4,8 +4,8 @@
   function getStock(event) {
     var record = event.record;
 
-    // 「処理状況」が「受注」の場合のみ動作
-    if (record.処理状況.value != "受注") {
+    // 「処理状況」が「未対応」または「受注確認済」の場合のみ動作
+    if (record.処理状況.value != "未対応" && record.処理状況.value != "受注確認済") {
       return null;
     } else {
 
