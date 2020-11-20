@@ -58,7 +58,6 @@
       var record = event.record;
       //フィールドを非活性にする
       record['製造番号'].disabled = true;
-      record['製造開始日時'].disabled = true;
       return event;
   });
 
